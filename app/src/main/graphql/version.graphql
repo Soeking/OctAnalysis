@@ -1,0 +1,6 @@
+query GetVersion {
+  krakenVersion {
+    number
+    SHA
+  }
+}
