@@ -1,0 +1,6 @@
+mutation login($input: ObtainJSONWebTokenInput!) {
+    obtainKrakenToken(input: $input) {
+        token
+        refreshToken
+    }
+}

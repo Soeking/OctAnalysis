@@ -45,6 +45,10 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    dependenciesInfo {
+        includeInApk = true
+        includeInBundle = true
+    }
 }
 
 dependencies {
@@ -65,6 +69,8 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation("com.apollographql.apollo3:apollo-runtime:4.0.0-alpha.1")
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+    implementation("androidx.navigation:navigation-compose:2.6.0")
 }
 
 apollo {
