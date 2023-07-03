@@ -17,9 +17,6 @@ import net.graphql.GetVersionQuery
 import net.soeki.octanalysis.ui.theme.OctAnalysisTheme
 
 class MainActivity : ComponentActivity() {
-    val client =
-        ApolloClient.Builder().serverUrl("https://api.oejp-kraken.energy/v1/graphql/").build()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -32,11 +29,6 @@ class MainActivity : ComponentActivity() {
                     Greeting("Android")
                 }
             }
-        }
-
-        runBlocking {
-            val number = client.query(GetVersionQuery()).execute().data?.krakenVersion?.number
-            Log.d("graphql test", number ?: "null")
         }
     }
 }
