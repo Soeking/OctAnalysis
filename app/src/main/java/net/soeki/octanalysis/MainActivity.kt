@@ -1,7 +1,7 @@
 package net.soeki.octanalysis
 
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,9 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.apollographql.apollo3.ApolloClient
-import kotlinx.coroutines.runBlocking
-import net.graphql.GetVersionQuery
+import androidx.navigation.compose.rememberNavController
 import net.soeki.octanalysis.ui.theme.OctAnalysisTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +19,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             OctAnalysisTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -31,6 +28,11 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+}
+
+@Composable
+fun ScreenManage(context: Context) {
+    val navController = rememberNavController()
 }
 
 @Composable

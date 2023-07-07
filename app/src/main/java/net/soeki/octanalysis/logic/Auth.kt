@@ -6,6 +6,7 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.apollographql.apollo3.api.Optional
 import net.graphql.type.ObtainJSONWebTokenInput
+import java.util.Date
 
 class Auth(private val context: Context) {
     private var masterKey: MasterKey =
@@ -43,7 +44,7 @@ class Auth(private val context: Context) {
         return false
     }
 
-    public fun screenLogin(email: String, pass: String): Boolean {
+    public fun manualLogin(email: String, pass: String): Boolean {
         val result = login(email, pass)
         if (result) {
             writeUserInfo(email, pass)
@@ -62,6 +63,14 @@ class Auth(private val context: Context) {
         }
     }
 
+    fun getUserInfo(): Triple<String, String, String> {
+        val email = userPref.getString("email", "")
+        val password = userPref.getString("password", "")
+        val number = userPref.getString("number", "")
+
+        return Triple(email ?: "", password ?: "", number ?: "")
+    }
+
     private fun writeUserInfo(email: String, pass: String) {
         with(userPref.edit()) {
             putString("email", email)
@@ -70,10 +79,18 @@ class Auth(private val context: Context) {
         }
     }
 
+    fun saveAccountNumber(number: String) {
+        with(userPref.edit()) {
+            putString("number", number)
+            apply()
+        }
+    }
+
     private fun writeToken(token: String, refresh: String) {
         with(tokenPref.edit()) {
             putString("token", token)
             putString("refresh", refresh)
+            putString("time", Date().toString())
             apply()
         }
     }

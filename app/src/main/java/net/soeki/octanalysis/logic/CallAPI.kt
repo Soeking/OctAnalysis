@@ -1,7 +1,6 @@
 package net.soeki.octanalysis.logic
 
 import com.apollographql.apollo3.ApolloClient
-import com.apollographql.apollo3.api.Optional
 import kotlinx.coroutines.runBlocking
 import net.graphql.LoginMutation
 import net.graphql.type.ObtainJSONWebTokenInput
