@@ -68,6 +68,7 @@ fun TextInput(
             .padding(10.dp)
             .clip(RoundedCornerShape(5.dp)),
         label = { Text(label) },
-        visualTransformation = type
+        visualTransformation = type,
+        maxLines = 1
     )
 }

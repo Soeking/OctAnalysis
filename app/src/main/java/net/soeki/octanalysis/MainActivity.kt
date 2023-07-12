@@ -24,6 +24,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import net.soeki.octanalysis.logic.Auth
 import net.soeki.octanalysis.screen.LoginScreen
 import net.soeki.octanalysis.screen.Screen
 import net.soeki.octanalysis.screen.bottomItems
@@ -39,6 +40,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Greeting("Android")
+                    ScreenManage(context = applicationContext)
                 }
             }
         }
@@ -48,6 +50,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ScreenManage(context: Context) {
     val navController = rememberNavController()
+    val auth = Auth(context)
+    val isSuccessLogin = auth.tryAutoLogin()
 
     Scaffold(
         bottomBar = {
@@ -56,16 +60,14 @@ fun ScreenManage(context: Context) {
                 val currentDestination = navBackStackEntry?.destination
                 bottomItems.forEach { screen ->
                     BottomNavigationItem(
-                        icon = { Icon(Icons.Filled.Home, null) },
-                        label = { Text(text = screen.route) },
+                        icon = { Icon(screen.icon, null) },
                         selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                         onClick = {
                             navController.navigate(screen.route) {
                                 popUpTo(screen.route) {
                                     saveState = true
+                                    inclusive = true
                                 }
-                                launchSingleTop = true
-                                restoreState = true
                             }
                         }
                     )
@@ -75,7 +77,7 @@ fun ScreenManage(context: Context) {
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.Login.route,
+            startDestination = if (isSuccessLogin) Screen.Data.route else Screen.Login.route,
             Modifier.padding(innerPadding)
         ) {
             composable(Screen.Data.route) {}
