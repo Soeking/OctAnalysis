@@ -1,0 +1,20 @@
+query halfHourlyReadings($accountNumber: String!, $fromDatetime: DateTime, $toDatetime: DateTime) {
+    account(accountNumber: $accountNumber) {
+        properties {
+            electricitySupplyPoints {
+                agreements {
+                    validFrom
+                    validTo
+                }
+                halfHourlyReadings(fromDatetime: $fromDatetime, toDatetime: $toDatetime) {
+                    startAt
+                    value
+                    costEstimate
+                    consumptionStep
+                    consumptionRateBand
+                    endAt
+                }
+            }
+        }
+    }
+}

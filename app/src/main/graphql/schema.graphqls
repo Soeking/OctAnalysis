@@ -1,5 +1,6 @@
 type Query {
   krakenVersion: KrakenVersion
+  account(accountNumber: String!, fromDatetime: DateTime, toDatetime: DateTime): Account
 }
 
 type Mutation {
@@ -14,6 +15,37 @@ type KrakenVersion {
 type ObtainKrakenToken {
   token: String
   refreshToken: String
+}
+
+type Account{
+  accountNumber: String
+  properties: Property
+}
+
+type Property {
+  electricitySupplyPoints: ElectricitySupplyPoint
+}
+
+type ElectricitySupplyPoint {
+  agreements: Agreement
+  halfHourlyReadings(
+    fromDatetime: DateTime
+    toDatetime: DateTime
+  ): [ElectricityHalfHourReading]
+}
+
+type Agreement {
+  validFrom: DateTime
+  validTo: DateTime
+}
+
+type ElectricityHalfHourReading {
+  startAt: DateTime!
+  endAt: Float!
+  value: Float!
+  costEstimate: Float!
+  consumptionRateBand: String!
+  consumptionStep: Int!
 }
 
 input ObtainJSONWebTokenInput {
@@ -35,6 +67,10 @@ scalar String
 The `Boolean` scalar type represents `true` or `false`.
 """
 scalar Boolean
+
+scalar DateTime
+
+scalar Decimal
 
 """
 Directs the executor to skip this field or fragment when the `if` argument is true.
