@@ -75,6 +75,7 @@ dependencies {
     implementation("com.apollographql.apollo3:apollo-adapters:4.0.0-alpha.1")
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
     implementation("androidx.navigation:navigation-compose:2.6.0")
+    implementation("com.patrykandpatrick.vico:compose-m3:1.12.0")
 }
 
 apollo {
